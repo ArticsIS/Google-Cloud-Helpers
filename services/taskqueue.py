@@ -14,7 +14,9 @@ class CloudTasks:
 			self.client = tasks_v2beta3.CloudTasksClient()
 		else:
 			self.client = tasks_v2beta3.CloudTasksClient.from_service_account_json(client_secrets_path)
-		self.parent = self.client.location_path(self.project, self.location)
+		self.parent = self.client.location_path(self.project, self.loc)
+	def getClient(self):
+		return self.client
 	def returnQueuesList(self):
 		results = []
 		for queue in self.client.list_queues(self.parent):
@@ -35,7 +37,7 @@ class CloudTasks:
 
 class CloudQueue(CloudTasks):
 	"""Class for Cloud Tasks Queue operations"""
-	def __init__(self, loc, pr, local, path, name):
+	def __init__(self, loc, pr, name, local = False, path = 'client_secrets.json'):
 		super().__init__(loc, pr, local, path)
 		self.queue_name = name
 		self.queue_parent = self.client.queue_path(self.project, self.loc, self.queue_name)
