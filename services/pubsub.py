@@ -5,9 +5,9 @@ import logging
 
 
 class PubSub:
-	def __init__(self, topic=None, project=None):
-		self._project = project if project is not None else 'trying-artics-pipeline'
-		self._topic = topic if topic is not None else 'notification_email_intraday'
+	def __init__(self, topic, project):
+		self._project = project
+		self._topic = topic
 
 		self._AT_GCP = os.environ.get('AT_GCP', False)
 
